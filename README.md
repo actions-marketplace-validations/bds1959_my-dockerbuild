@@ -13,33 +13,10 @@ Here are examples of workflows that use this action on only push to master.
 
 ### Push to Google Cloud Registry eg gcr.io
 
-```yml
-name: Build and Push
-on: 
-  push:
-      branches:    
-          - master
-jobs:
-  build_publish_gcr:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-
-    - name: Build and Push
-      uses: zemuldo/docker-build-push@master
-      env:
-        GCLOUD_PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
-        GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
-        REGISTRY_URL: "gcr.io"
-      with:
-       image_name: "my-image"
-       image_tag: "latest"
-```
-
 ### Pus to docker hub
 
 ```yml
-name: Publish GRC
+name: dockerbuild
 on: 
   push:
       branches:    
@@ -47,13 +24,13 @@ on:
           - develop
 jobs:
 
-  build_publish_docker_hub:
+  build_push_docker_image:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
 
     - name: Build and Push
-      uses: zemuldo/docker-build-push@master
+      uses: bds1959/my-Dockerbuild@v2.0
       env:
         DOCKER_USERNAME: "docker_user_name"
         DOCKER_NAMESPACE: "docker_name_space"
